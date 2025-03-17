@@ -19,7 +19,7 @@ function App() {
     e.preventDefault();
     setIsQuerying(true);
     try {
-      const API_URL = "https://rahul-nahar-github-io-1.onrender.com/";  // Replace with your Render URL
+      const API_URL = "https://fb0fe792-b113-4316-baa2-2272bac2e4c5.us-east-1.cloud.genez.io/";  // Replace with your Render URL
       // Update your fetch call
       const response = await fetch(`${API_URL}/query?question=${encodeURIComponent(query)}`);      const data = await response.json();
       console.log('Query result:', data);
