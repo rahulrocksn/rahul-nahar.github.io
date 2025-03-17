@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 import numpy as np  
 import google.generativeai as genai
-
+import uvicorn
 from dotenv import load_dotenv
 import os
 
@@ -11,15 +11,21 @@ load_dotenv()
 
 # Near the top of your file after imports
 api_key = os.getenv("GOOGLE_API_KEY")
+port = int(os.getenv("PORT", 8000))
 
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # Allow both localhost and IP
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://rahul-nahar-github-io.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add root endpoint
+@app.get("/")
+def read_root():
+    return {"message": "Hello World!"}
 
 resume_data = { "Education": [
         {
@@ -202,6 +208,9 @@ def query_resume(question: str, num_results: int = 3):  # Allow specifying the n
         print(generated_text)
 
     return {"responses": generated_text}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 
