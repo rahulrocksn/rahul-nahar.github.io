@@ -1,7 +1,11 @@
 services:
   - type: web
-    name: rahul-portfolio-api
+    name: rahul-portfolio-backend
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.11.11
