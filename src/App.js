@@ -19,8 +19,9 @@ function App() {
     e.preventDefault();
     setIsQuerying(true);
     try {
-      const response = await fetch(`http://localhost:8000/query?question=${encodeURIComponent(query)}`);
-      const data = await response.json();
+      const API_URL = "http://127.0.0.1:8000";  // Replace with your Render URL
+      // Update your fetch call
+      const response = await fetch(`${API_URL}/query?question=${encodeURIComponent(query)}`);      const data = await response.json();
       console.log('Query result:', data);
       setQueryResult(data);
     } catch (error) {
@@ -257,12 +258,11 @@ function App() {
                   className="btn btn-primary"
                   disabled={isQuerying}
                 >
-                  {isQuerying ? 'Searching...' : 'Ask'}
+                  {isQuerying ? 'Cooking...' : 'Ask'}
                 </button>
               </form>
               {queryResult && (
                 <div className="query-result card">
-                  <h3>Category: {queryResult.category}</h3>
                   <p>{queryResult.responses}</p>
                 </div>
               )}
